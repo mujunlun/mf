@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystic Flips | 世外中学魔术花切社</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #fafafa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f5f5f7;
+            --accent-black: #1d1d1f;
+            --accent-gray: #86868b;
+            --accent-blue: #0071e3;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --border-subtle: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 导航 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav-inner {
+            max-width: 1024px;
+            width: 100%;
+            padding: 0 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 48px;
+        }
+
+        .logo {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--accent-black);
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-gray);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--accent-black);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: -0.01em;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        /* 通用容器 */
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+
+        section {
+            padding: 6rem 0;
+        }
+
+        /* 标题样式 */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            color: var(--accent-blue);
+            font-size: 0.85rem;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            color: var(--accent-black);
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 48px;
+            background: var(--bg-primary);
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            color: var(--accent-gray);
+            font-size: 0.95rem;
+            letter-spacing: -0.01em;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-family: 'Noto Serif SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', serif;
+            font-size: 4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+            color: var(--accent-black);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            margin-bottom: 2rem;
+        }
+
+        /* 图片展示通用 */
+        .image-showcase {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .image-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            background: var(--bg-secondary);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .image-card:hover img {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            padding: 1.2rem;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .image-card:hover .image-caption {
+            opacity: 1;
+        }
+
+        .image-caption h3 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .image-caption p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+
+        /* 分节特殊布局 */
+        .founders-grid {
+            grid-template-columns: 1fr;
+            max-width: 800px;
+            margin: 2rem auto 0;
+        }
+
+        .founders-grid .image-card {
+            aspect-ratio: 16/9;
+        }
+
+        .community-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .community-grid .image-card {
+            aspect-ratio: 4/3;
+        }
+
+        .practice-grid {
+            grid-template-columns: 1fr;
+            max-width: 600px;
+            margin: 2rem auto 0;
+        }
+
+        .practice-grid .image-card {
+            aspect-ratio: 1/1;
+        }
+
+        .gala-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .gala-grid .image-card {
+            aspect-ratio: 3/4;
+        }
+
+        .group-grid {
+            grid-template-columns: 1fr;
+            max-width: 800px;
+            margin: 2rem auto 0;
+        }
+
+        .group-grid .image-card {
+            aspect-ratio: 16/9;
+        }
+
+        .qr-grid {
+            grid-template-columns: 1fr;
+            max-width: 300px;
+            margin: 2rem auto 0;
+            text-align: center;
+        }
+
+        .qr-grid .image-card {
+            aspect-ratio: 1/1;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .qr-grid .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .qr-note {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* 特色介绍卡片 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            border-radius: 18px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-black);
+        }
+
+        .feature-card h3 {
+            font-family: 'Noto Serif SC', -apple-system, BlinkMacSystemFont, serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-black);
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* 引用/标语 */
+        .quote-section {
+            background: var(--bg-tertiary);
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .quote-text {
+            font-family: 'Noto Serif SC', -apple-system, BlinkMacSystemFont, serif;
+            font-size: 1.75rem;
+            color: var(--accent-black);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        .quote-text span {
+            color: var(--accent-gray);
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--bg-tertiary);
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Noto Serif SC', -apple-system, BlinkMacSystemFont, serif;
+            font-size: 1.5rem;
+            color: var(--accent-black);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--accent-black);
+            margin: 1.5rem auto;
+            opacity: 0.2;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
+            .features { grid-template-columns: 1fr; }
+            .community-grid { grid-template-columns: 1fr; }
+            .gala-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            section { padding: 4rem 0; }
+            .quote-text { font-size: 1.3rem; padding: 0 2rem; }
+        }
+
+        /* 装饰线 */
+        .divider-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 3rem 0;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            letter-spacing: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航 -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="#" class="logo">MF <span>MYSTIC FLIPS</span></a>
+            <ul class="nav-links">
+                <li><a href="#founders">创始人</a></li>
+                <li><a href="#community">公益服务</a></li>
+                <li><a href="#practice">日常修炼</a></li>
+                <li><a href="#gala">慈善晚会</a></li>
+                <li><a href="#join">加入我们</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">世外中学魔术花切社</div>
+            <h1 class="hero-title">Mystic Flips</h1>
+            <p class="hero-subtitle">以指尖艺术 · 传递奇迹与温暖</p>
+        </div>
+    </section>
+
+    <!-- 创始人 -->
+    <section id="founders">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">The Founders</div>
+                <h2 class="section-title">三位创始人</h2>
+                <p class="section-desc">一切奇迹的起点，源于三个少年对魔术纯粹的热爱与执念。他们用最真诚的初心，搭建起这座通往奇幻世界的桥梁。</p>
+            </div>
+            <div class="image-showcase founders-grid">
+                <div class="image-card">
+                    <img src="微信图片_20260621192151_723_6.jpg" alt="三位创始人">
+                    <div class="image-caption">
+                        <h3>创始团队</h3>
+                        <p>社团的三位创始人，在会议室留下了这张珍贵的合影</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特色介绍 -->
+    <section style="padding-top: 2rem; background: var(--bg-tertiary);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Why Us</div>
+                <h2 class="section-title">社团特色</h2>
+                <p class="section-desc">我们不仅仅是一个表演社团，更是一个用魔术连接人心、传递正能量的大家庭。</p>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">♠</div>
+                    <h3>技艺精湛</h3>
+                    <p>涵盖近景魔术、舞台魔术、花切（Cardistry）等多种艺术形式，从基础手法到高阶流程，系统传承魔术技艺。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">♥</div>
+                    <h3>公益暖心</h3>
+                    <p>定期走进社区，为残障人士等特殊群体带去欢乐与惊喜。我们相信，魔术的力量在于点亮他人眼中的光芒。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">♦</div>
+                    <h3>舞台绽放</h3>
+                    <p>每年学校慈善晚会的重要表演力量，从策划、编排到登台，社员在聚光灯下收获自信与成长。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider-ornament">♣ ♠ ♥ ♦</div>
+
+    <!-- 公益服务 -->
+    <section id="community">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Community Care</div>
+                <h2 class="section-title">关爱社区 · 温暖传递</h2>
+                <p class="section-desc">魔术不只是炫技，更是一种沟通的媒介。我们走进社区，为残障人士表演，用卡牌的变幻带去欢笑，用真诚的互动消融隔阂。</p>
+            </div>
+            <div class="image-showcase community-grid">
+                <div class="image-card">
+                    <img src="2f4d6a576757d7d98ea63eb96ff54be1.jpg" alt="社区表演1">
+                    <div class="image-caption">
+                        <h3>社区互动</h3>
+                        <p>与社区朋友们围坐一堂，分享魔术的乐趣</p>
+                    </div>
+                </div>
+                <div class="image-card">
+                    <img src="c11a73de6503b6ce1072f2f5c1fe89eb.jpg" alt="社区表演2">
+                    <div class="image-caption">
+                        <h3>近距离体验</h3>
+                        <p>让每一位观众都能亲身感受奇迹的发生</p>
+                    </div>
+                </div>
+                <div class="image-card">
+                    <img src="e2233b006932bef011d0a78fddcbbf62.jpg" alt="社区表演3">
+                    <div class="image-caption">
+                        <h3>手把手教学</h3>
+                        <p>耐心讲解，让魔术成为连接彼此的纽带</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 日常练习 -->
+    <section id="practice">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Daily Practice</div>
+                <h2 class="section-title">台下十年功</h2>
+                <p class="section-desc">每一个惊艳瞬间的背后，都是无数个日夜的反复打磨。台上一分钟，台下十年功，这是属于魔术师的修行。</p>
+            </div>
+            <div class="image-showcase practice-grid">
+                <div class="image-card">
+                    <img src="c293c8ceca8cbd84e344f0f8afa6d0c5.jpg" alt="日常练习">
+                    <div class="image-caption">
+                        <h3>深夜修炼</h3>
+                        <p>社员在家中反复练习高难度手法，追求每一个动作的极致完美</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 慈善晚会 -->
+    <section id="gala">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Charity Gala</div>
+                <h2 class="section-title">慈善晚会 · 闪耀舞台</h2>
+                <p class="section-desc">每年年初，学校慈善晚会的舞台上总有我们的身影。从近景互动到舞台幻术，我们用精心编排的节目为慈善助力。</p>
+            </div>
+            <div class="image-showcase gala-grid">
+                <div class="image-card">
+                    <img src="微信图片_20260621192151_724_6.jpg" alt="晚会表演1">
+                    <div class="image-caption">
+                        <h3>舞台风采</h3>
+                        <p>世外中学魔术花切社在慈善晚会的精彩演出</p>
+                    </div>
+                </div>
+                <div class="image-card">
+                    <img src="微信图片_20260621192154_727_6.png" alt="晚会表演2">
+                    <div class="image-caption">
+                        <h3>心灵感应</h3>
+                        <p>与观众互动，展现读心术与预言的奇妙魅力</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 引用 -->
+    <div class="quote-section">
+        <div class="container">
+            <p class="quote-text">"魔术的奥秘不在于欺骗眼睛，<br>而在于<span>唤醒心灵</span>对奇迹的渴望。"</p>
+        </div>
+    </div>
+
+    <!-- 社团合照 -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Our Family</div>
+                <h2 class="section-title">Mystic Flips 大家庭</h2>
+                <p class="section-desc">从寥寥数人到如今的大家庭，每一张新面孔都为社团注入新的活力。我们因魔术相识，因热爱相聚。</p>
+            </div>
+            <div class="image-showcase group-grid">
+                <div class="image-card">
+                    <img src="微信图片_20260621192152_725_6.jpg" alt="社团合照">
+                    <div class="image-caption">
+                        <h3>2024 集体合影</h3>
+                        <p>Mystic Flips 魔术花切社全体成员，手持社旗，共赴奇幻之旅</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 加入我们 -->
+    <section id="join" style="padding-bottom: 4rem;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Join Us</div>
+                <h2 class="section-title">加入 Mystic Flips</h2>
+                <p class="section-desc">无论你是零基础的小白，还是已经有一定功底的爱好者，这里都有属于你的舞台。扫描下方二维码，加入招新群，开启你的魔术之旅。</p>
+            </div>
+            <div class="image-showcase qr-grid">
+                <div class="image-card">
+                    <img src="微信图片_20260621193546_728_6.jpg" alt="招新群二维码">
+                </div>
+                <p class="qr-note">扫码加入「魔术花切社招新群」<br>开启属于你的奇迹时刻</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Mystic Flips</div>
+            <div class="footer-divider"></div>
+            <p class="footer-text">世外中学魔术花切社 · 以指尖艺术传递奇迹与温暖<br>© 2024 Mystic Flips. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
